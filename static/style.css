@@ -1,0 +1,42 @@
+footer {
+    background-color: black;
+    color: white;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+    padding: 10px;
+}
+
+#titulostabla{
+    background-color:#95A2A8;
+    color:white
+}
+
+#nombremetrica{
+    background-color:#95A2A8;
+    color:white;
+    font-weight:bold
+}
+
+h4{
+    color:#0E1385;
+    font-weight:bold;
+}
+
+#colorfila {
+    background-color: darksalmon;
+}
+
+#titulos{
+    background-color:#D6E123;
+    color:black;
+    text-align: center;
+}
+
+#barra {
+    background-color: #4C9DC2;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}

@@ -1,0 +1,404 @@
+{%extends "layout.html" %} {% block content %}
+<div id="barra">
+        <h2>Haberman's Survival Data</h2>
+    </div>
+<center>
+    <img src="/plot_ext.png" width="600px" height="400px">
+</center>
+<br>
+<div class="container">
+    <b>Clases:</b>
+    <ol>
+        <li>El paciente sobrevivió 5 años o más.</li>
+        <li>El paciente falleció dentro de los 5 años</li>
+    </ol>
+    <hr>
+
+
+    <h4>Algoritmo K-Nearest Neighbor(KNN)</h4>
+    <b>Accuracy: </b>{{metricas_knn[0]}}
+    <div class="main row">
+        <div class="col-md-8">
+            <table class="table">
+        <tr id="titulostabla">
+            <th></th>
+            <th>Sobrevivieron más de 5 años</th>
+            <th>No sobrevivieron más de 5 años</th>
+
+        </tr>
+        <tr>
+            <td id="nombremetrica">Recall</td>
+            {% for t in metricas_knn[1] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">Precision</td>
+            {% for t in metricas_knn[2] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">F1 Measure</td>
+            {% for t in metricas_knn[3] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+    </table>
+        </div>
+
+        <div class="col-md-4">
+            <center>
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Predicción Vs Real
+            </button>
+
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                <table class="table">
+                    <tr id="titulos">
+                        <th>Real</th>
+                        <th>Predicción</th>
+                    </tr>
+                    {% for t in knn %} {% if t[0]!=t[1]%}
+                    <tr id="colorfila">
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% if t[0]==t[1]%}
+                    <tr>
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% endfor%}
+                </table>
+                </div>
+            </div>
+            </center>
+        </div>
+    </div>
+    <b>Tiempo ejecución: </b>{{tiempos[0]}} segundos
+    <hr>
+
+
+
+    <h4>Algoritmo Random Forest</h4>
+        <b>Accuracy: </b>{{metricas_ran[0]}}
+    <div class="main row">
+        <div class="col-md-8">
+            <table class="table">
+        <tr id="titulostabla">
+            <th></th>
+            <th>Sobrevivieron más de 5 años</th>
+            <th>No sobrevivieron más de 5 años</th>
+        </tr>
+        <tr>
+            <td id="nombremetrica">Recall</td>
+            {% for t in metricas_ran[1] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">Precision</td>
+            {% for t in metricas_ran[2] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">F1 Measure</td>
+            {% for t in metricas_ran[3] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+    </table>
+        </div>
+        <div class="col-md-4">
+            <center>
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#random" aria-expanded="false" aria-controls="collapseExample">
+            Predicción Vs Real
+            </button>
+
+            <div class="collapse" id="random">
+                <div class="card card-body">
+                <table class="table">
+                    <tr id="titulos">
+                        <th>Real</th>
+                        <th>Predicción</th>
+                    </tr>
+                    {% for t in ran %} {% if t[0]!=t[1]%}
+                    <tr id="colorfila">
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% if t[0]==t[1]%}
+                    <tr>
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% endfor%}
+                </table>
+                </div>
+            </div>
+            </center>
+        </div>
+    </div>
+    <b>Tiempo ejecución: </b>{{tiempos[1]}} segundos
+    <hr>
+
+
+    <h4>Naive Bayes</h4>
+       <b>Accuracy: </b>{{metricas_nb[0]}}
+    <div class="main row">
+        <div class="col-md-8">
+            <table class="table">
+        <tr id="titulostabla">
+            <th></th>
+            <th>Sobrevivieron más de 5 años</th>
+            <th>No sobrevivieron más de 5 años</th>
+        </tr>
+        <tr>
+            <td id="nombremetrica">Recall</td>
+            {% for t in metricas_nb[1] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">Precision</td>
+            {% for t in metricas_nb[2] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">F1 Measure</td>
+            {% for t in metricas_nb[3] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+    </table>
+        </div>
+        <div class="col-md-4">
+            <center>
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#nb" aria-expanded="false" aria-controls="collapseExample">
+            Predicción Vs Real
+            </button>
+
+            <div class="collapse" id="nb">
+                <div class="card card-body">
+                <table class="table">
+                    <tr id="titulos">
+                        <th>Real</th>
+                        <th>Predicción</th>
+                    </tr>
+                    {% for t in nb %} {% if t[0]!=t[1]%}
+                    <tr id="colorfila">
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% if t[0]==t[1]%}
+                    <tr>
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% endfor%}
+                </table>
+                </div>
+            </div>
+            </center>
+        </div>
+    </div>
+    <b>Tiempo ejecución: </b>{{tiempos[2]}} segundos
+    <hr>
+
+
+    <h4>Regresión Logística</h4>
+    <b>Accuracy: </b>{{metricas_rl[0]}}
+    <div class="main row">
+        <div class="col-md-8">
+            <table class="table">
+        <tr id="titulostabla">
+            <th></th>
+            <th>Sobrevivieron más de 5 años</th>
+            <th>No sobrevivieron más de 5 años</th>
+        </tr>
+        <tr>
+            <td id="nombremetrica">Recall</td>
+            {% for t in metricas_rl[1] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">Precision</td>
+            {% for t in metricas_rl[2] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">F1 Measure</td>
+            {% for t in metricas_rl[3] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+    </table>
+        </div>
+        <div class="col-md-4">
+            <center>
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#rl" aria-expanded="false" aria-controls="collapseExample">
+            Predicción Vs Real
+            </button>
+
+            <div class="collapse" id="rl">
+                <div class="card card-body">
+                <table class="table">
+                    <tr id="titulos">
+                        <th>Real</th>
+                        <th>Predicción</th>
+                    </tr>
+                    {% for t in reg_log_iris %} {% if t[0]!=t[1]%}
+                    <tr id="colorfila">
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% if t[0]==t[1]%}
+                    <tr>
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% endfor%}
+                </table>
+                </div>
+            </div>
+            </center>
+
+        </div>
+    </div>
+    <b>Tiempo ejecución: </b>{{tiempos[3]}} segundos
+    <hr>
+
+    <h4>Máquina de Soporte Vectorial</h4>
+        <b>Accuracy: </b>{{metricas_sv[0]}}
+    <div class="main row">
+        <div class="col-md-8">
+     <table class="table">
+        <tr id="titulostabla">
+            <th></th>
+            <th>Sobrevivieron más de 5 años</th>
+            <th>No sobrevivieron más de 5 años</th>
+        </tr>
+        <tr>
+            <td id="nombremetrica">Recall</td>
+            {% for t in metricas_sv[1] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">Precision</td>
+            {% for t in metricas_sv[2] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">F1 Measure</td>
+            {% for t in metricas_sv[3] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+    </table>
+            </div>
+        <div class="col-md-4">
+            <center>
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#sv" aria-expanded="false" aria-controls="collapseExample">
+            Predicción Vs Real
+            </button>
+
+            <div class="collapse" id="sv">
+                <div class="card card-body">
+                <table class="table">
+                    <tr id="titulos">
+                        <th>Real</th>
+                        <th>Predicción</th>
+                    </tr>
+                    {% for t in s_vectorial %} {% if t[0]!=t[1]%}
+                    <tr id="colorfila">
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% if t[0]==t[1]%}
+                    <tr>
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% endfor%}
+                </table>
+                </div>
+            </div>
+            </center>
+        </div>
+        </div>
+    <b>Tiempo ejecución: </b>{{tiempos[4]}} segundos
+    <hr>
+
+
+    <h4>Red Neuronal</h4>
+    <b>Accuracy: </b> {{metricas_rn[0]}}
+    <div class="main row">
+        <div class="col-md-8">
+     <table class="table">
+        <tr id="titulostabla">
+            <th></th>
+            <th>Sobrevivieron más de 5 años</th>
+            <th>No sobrevivieron más de 5 años</th>
+        </tr>
+        <tr>
+            <td id="nombremetrica">Recall</td>
+            {% for t in metricas_rn[1] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">Precision</td>
+            {% for t in metricas_rn[2] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+        <tr>
+            <td id="nombremetrica">F1 Measure</td>
+            {% for t in metricas_rn[3] %}
+            <td>{{t}}</td>
+            {% endfor%}
+        </tr>
+    </table>
+            </div>
+        <div class="col-md-4">
+           <center>
+            <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#red" aria-expanded="false" aria-controls="collapseExample">
+            Predicción Vs Real
+            </button>
+
+            <div class="collapse" id="red">
+                <div class="card card-body">
+                <table class="table">
+                    <tr id="titulos">
+                        <th>Real</th>
+                        <th>Predicción</th>
+                    </tr>
+                    {% for t in red %} {% if t[0]!=t[1]%}
+                    <tr id="colorfila">
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% if t[0]==t[1]%}
+                    <tr>
+                        <td> {{t[0]}}</td>
+                        <td>{{t[1]}}</td>
+                    </tr>
+                    {% endif %} {% endfor%}
+                </table>
+                </div>
+            </div>
+            </center>
+        </div>
+        </div>
+    <b>Tiempo ejecución: </b>{{tiempos[5]}} segundos
+</div>
+<hr>
+{% endblock %}
