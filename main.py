@@ -5,7 +5,7 @@ import io
 from algoritmos import (regresion_logistica,resultado_variables,metricas_reg_log,m_soporte_vectorial,red_neuronal,knn,random,nbayes,cargar_iris,
 dispersion_iris,tiempos,pred_real_iris,dispersion_externo)
 
-app= Flask(__name__)
+app = Flask(__name__)
 x_train, x_test, y_train, y_test, x2_train, x2_test, y2_train, y2_test=resultado_variables()
 iris,iris2=cargar_iris()
 
